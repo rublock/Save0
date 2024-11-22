@@ -36,10 +36,13 @@ def move_and_plant(n, direction, item):
 	elif item == Entities.Carrots:
 		for _ in range(n):
 			trade(Items.Carrot_Seed)
+			trade(Items.Empty_Tank)
+			get_water()
 			if can_harvest():
 				harvest()
 				till()
 				plant(Entities.Carrots)
+				use_item(Items.Water_Tank)
 			else:
 				till()
 				plant(Entities.Carrots)
@@ -48,10 +51,9 @@ def move_and_plant(n, direction, item):
 		
 def main():				
 	while True:
-		#move_and_plant(4, North, None)
 		move_and_plant(4, North, Entities.Bush)
 		#move_and_plant(4, North, Entities.Carrots)
-
+		#move_and_plant(4, North, None)
+		
 main()
-	
-				
+		
