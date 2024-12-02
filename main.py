@@ -1,42 +1,34 @@
-def water_ground():
-	trade(Items.Empty_Tank)
-	use_item(Items.Water_Tank)
+from plant import *
+from buy_items import *
 
-def buy_tank():
-	trade(Items.Empty_Tank)
+count = 1
+expand = 5
+
+def water_ground():
+	use_item(Items.Water_Tank)
 
 def move_drone(n, direction, func):
 	for _ in range(n):
 		for _ in range(n):
 			harvest_plant()
-			water_ground()
 			func()
 			move(direction)
 		move(East)
 
-def plant_bush():
-	plant(Entities.Bush)
-
-def plant_carrot():
-	trade(Items.Carrot_Seed)
-	plant(Entities.Carrots)
-
 def harvest_plant():
 	if can_harvest():
 		harvest()
-	
-	
-move_drone(4, North, till)
-
-count = 0
+		water_ground()
+		
+move_drone(expand, North, till)
 
 while True:
-	print(count)
-	if count % 1 == 0:
-		trade(Items.Carrot_Seed)
-		trade(Items.Empty_Tank)
-	
-	count += 1
+	if count % 3 == 0:
+		buy_items()
+		move_drone(expand, North, plant_tree)
 
-	move_drone(4, North, plant_bush)
-	move_drone(4, North, plant_carrot)
+	move_drone(expand, North, plant_bush)
+	# move_drone(expand, North, plant_carrot)
+	move_drone(expand, North, plant_pumpkin)
+
+	count += 1
